@@ -1,8 +1,0 @@
-:root {
-  /* 
-  khi ta dùng thư viện nó chỉ áp dụng style cho component đôi lúc ta code
-  một số cái khác nên font nó không ăn khớp nên ta phải chuẩn hoá một cái cho
-  code riêng 
-  */
-  font-family: "Roboto", sans-serif;
-}
