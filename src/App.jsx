@@ -1,11 +1,28 @@
 import Button from "@mui/material/Button";
 import { pink } from "@mui/material/colors";
 import HomeIcon from "@mui/icons-material/home";
-import Typography  from "@mui/material/Typography";
+import Typography from "@mui/material/Typography";
+
+import { useColorScheme } from '@mui/material/styles';
+
+function ModeToggle() {
+  const { mode, setMode } = useColorScheme(); // hỗ trợ lưu vào local storage sẵn rồi
+  return (
+    <Button
+      onClick={() => {
+        setMode(mode === 'light' ? 'dark' : 'light');
+      }}
+    >
+      {mode === 'light' ? 'Turn dark' : 'Turn light'}
+    </Button>
+  );
+}
 
 function App() {
   return (
     <>
+      <ModeToggle />
+      <br />
       <div>abcdef</div>
       <Typography variant="body2" color="text.secondary">Typography</Typography>
       <Button variant="text">Text</Button>
