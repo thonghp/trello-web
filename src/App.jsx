@@ -1,9 +1,7 @@
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from '@mui/material/Box';
 
 import { useColorScheme } from '@mui/material/styles';
-// import useMediaQuery from '@mui/material/useMediaQuery';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,9 +11,15 @@ import Select from '@mui/material/Select';
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SettingsBrightnessIcon from "@mui/icons-material/SettingsBrightness";
+import Container from '@mui/material/Container';
 
 function ModeSelect() {
-  const { mode, setMode } = useColorScheme();
+  /*
+   * là một hook do mui viết sử dụng prefers-color-scheme để đọc dark hoặc light mode đang chạy trên
+   * máy tính cá nhân của user 
+   * const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+   */
+  const { mode, setMode } = useColorScheme(); // hỗ trợ lưu vào local storage sẵn rồi
   const handleChange = (event) => {
     const selectedMode = event.target.value // đọc giá trị khi nhấn vào mode select
     setMode(selectedMode)
@@ -56,47 +60,43 @@ function ModeSelect() {
   );
 }
 
-
-function ModeToggle() {
-  /*
-   * là một hook do mui viết sử dụng prefers-color-scheme để đọc dark hoặc light mode đang chạy trên
-   * máy tính cá nhân của user 
-   */
-  // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  // const prefersLightMode = useMediaQuery('(prefers-color-scheme: light)');
-  // console.log({ prefersDarkMode, prefersLightMode });
-  const { mode, setMode } = useColorScheme(); // hỗ trợ lưu vào local storage sẵn rồi
-  return (
-    <Button
-      onClick={() => {
-        setMode(mode === 'light' ? 'dark' : 'light');
-      }}
-    >
-      {mode === 'light' ? 'Turn dark' : 'Turn light'}
-    </Button>
-  );
-}
-
 function App() {
   return (
-    <>
-      <ModeSelect />
-      <hr />
-      <ModeToggle />
-      <br />
-      <div>abcdef</div>
-      <Typography variant="body2" color="text.secondary">Typography</Typography>
-      {/* <Button variant="text">Text</Button>
-      <Button var iant="contained">Contained</Button>
-      <Button variant="outlined">Outlined</Button>
-      <br />
-      <HomeIcon color="primary" />
-      <HomeIcon color="secondary" />
-      <HomeIcon color="success" />
-      <HomeIcon color="action" />
-      <HomeIcon color="disabled" />
-      <HomeIcon sx={{ color: pink[500] }} /> */}
-    </>
+    /*
+     * 100vh là chiều cao màn hình 100%, màn bao nhiêu inch nó cũng kéo dài full chiều cao màn hình
+     * disableGutters mặc định là false, khi ta gọi nó không chỉ định gì nó sẽ hiểu là true
+     *    padding left và right sẽ bị xoá
+     * maxWidth mặc định là true, ta chỉ định false nó sẽ full màn hình
+     */
+    <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
+      <Box sx={{
+        backgroundColor: 'primary.light',
+        width: '100%',
+        height: (theme) => theme.trelloCustom.appBarHeight,
+        display: 'flex',
+        alignItems: 'center', // căn giữa theo chiều dọc
+      }}>
+        <ModeSelect />
+      </Box>
+      <Box sx={{
+        backgroundColor: 'primary.dark',
+        width: '100%',
+        height: (theme) => theme.trelloCustom.boardBarHeight,
+        display: 'flex',
+        alignItems: 'center', // căn giữa theo chiều dọc
+      }}>
+        Board bar
+      </Box>
+      <Box sx={{
+        backgroundColor: 'primary.main',
+        width: '100%',
+        height: (theme) => `calc(100vh - ${theme.trelloCustom.appBarHeight} - ${theme.trelloCustom.boardBarHeight})`,
+        display: 'flex',
+        alignItems: 'center', // căn giữa theo chiều dọc
+      }}>
+        Content
+      </Box>
+    </Container>
   );
 }
 
