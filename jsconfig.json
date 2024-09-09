@@ -1,0 +1,8 @@
+{
+    // cấu hình ~/ khi nhấn vào nó sẽ nhảy tới file đó trong thư mục trên máy
+    "compilerOptions": {
+        "paths": {
+           "~/*": ["./src/*"],
+        }
+    }
+}
