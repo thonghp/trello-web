@@ -3,13 +3,14 @@ import { experimental_extendTheme as extendTheme } from "@mui/material/styles";
 
 const theme = extendTheme({
   trelloCustom: {
-    appBarHeight: '58px',
-    boardBarHeight: '60px',
+    // var css để gọi sử dụng bên view, lần sau thay đổi chỉ cần thay đổi ở đây
+    appBarHeight: "58px",
+    boardBarHeight: "60px",
   },
   colorSchemes: {
     light: {
       palette: {
-        primary: teal,
+        primary: teal, // ghi đè mặc định của nó
         secondary: deepOrange,
       },
     },
@@ -17,6 +18,51 @@ const theme = extendTheme({
       palette: {
         primary: cyan,
         secondary: orange,
+      },
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: "none", // bỏ ghi đè mặc định in hoa trên button, menu
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: ({ theme }) => {
+          return {
+            color: theme.palette.primary.main,
+            fontSize: "0.875rem",
+          }
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: ({ theme }) => {
+          // console.log(theme) // xem các giá trị mặc định có bên trong theme
+          return {
+            color: theme.palette.primary.main,
+            fontSize: "0.875rem",
+            // . thể hiện là class
+            ".MuiOutlinedInput-notchedOutline": {
+              // custom outline
+              borderColor: theme.palette.primary.main,
+            },
+            // : đi theo hover
+            "&:hover": {
+              ".MuiOutlinedInput-notchedOutline": {
+                borderColor: theme.palette.primary.main,
+              },
+            },
+            // space đi theo với tag
+            "& fieldset": {
+              borderWidth: "1px !important",
+            },
+          };
+        },
       },
     },
   },
