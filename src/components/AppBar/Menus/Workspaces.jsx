@@ -13,6 +13,10 @@ import Cloud from '@mui/icons-material/Cloud';
 import ExpandMoreItem from '@mui/icons-material/Expandmore'
 
 function Workspaces() {
+    /*
+     * useState là một react hook sử dụng khi muốn data thay đổi thì giao diện tự động được cập nhật
+     * render lại theo data
+     */ 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
